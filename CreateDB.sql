@@ -1,3 +1,7 @@
+drop database if exists cs482502fa17_igoettin;
+create database cs482502fa17_igoettin;
+use cs482502fa17_igoettin;
+
 create table Player(
 	ID			int,
     LoginID		varchar(16),
@@ -7,10 +11,25 @@ create table Player(
     Address     varchar(128),
     Email		varchar(32),
     PhoneNumber	char(10),
-    PlayPos		varchar(16)
-    check(PlayPos in ('point guard','shooting guard', 'small forward','power forward','center')),
-	primary key(ID)
+    PlayPos		varchar(16),
+    primary key(ID)
 );
+
+/* Trigger to check that PlayPos in Player table is the correct value */
+delimiter //
+create trigger player_pos_check before insert on Player
+for each row
+    begin
+        if new.PlayPos != 'point guard' 
+        and new.PlayPos != 'shooting guard' 
+        and new.PlayPos != 'small forward' 
+        and new.PlayPos != 'power forward' 
+        and new.PlayPos != 'center' then
+            signal sqlstate '45000' set message_text = 'ERROR: PlayPos must be point guard, shooting guard, small forward, power forward, or center!';
+        end if;
+    end
+//
+delimiter ;
 
 create table Manager(
 	ID			int,
@@ -75,9 +94,23 @@ create table Game(
     Result	varchar(16) not null,
     PlayingVenue	varchar(256) not null,
     OpponentTeam	varchar(32) not null,
-    primary key(GameID),
-    check (Result in ('Win', 'Lose', 'Tie'))
+    primary key(GameID)
 );
+
+/*Trigger to check the Game constraint of Win, Lose, or Tie */
+delimiter //
+create trigger game_check before insert on Game
+for each row
+    begin
+        if new.Result != 'Win' 
+        and new.Result != 'Lose' 
+        and new.Result != 'Tie' then 
+            signal sqlstate '45000' set message_text = 'ERROR: Result must be Win, Lose, or Tie!';
+        end if;
+    end
+//
+delimiter ;
+
 
 create table Play(
 	PlayerID	int,

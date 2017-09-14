@@ -9,7 +9,6 @@ values(1013, 223, 'Bob', 'pass3', '1993-01-14', 'Green Ave', 'bob2121@nmsu.edu',
 insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
 values(1014, 224, 'Derek', 'pass4', '1983-03-01', 'Red Street', 'derek2982@nmsu.edu', 8793921011, 'center');
 
-
 insert into Manager(ID,LoginID,Name,Password,Birthday,Address,Email,PhoneNumber)
 values(10, 20, 'Ryan', 'passw', '1994-11-05', 'Farm',  'ryan121@nmsu.edu', 4112345467);
 insert into Manager(ID,LoginID,Name,Password,Birthday,Address,Email,PhoneNumber)
@@ -77,6 +76,7 @@ values(1013,13,'Running');
 insert into AssignTraining(PlayerID,ManagerID,TrainingName)
 values(1014,14,'Practice');
 
+
 insert into Game(GameID,Date,Result,PlayingVenue,OpponentTeam)
 values(001,'2017-09-08','Lose','Behind Corbett','Lakers');
 insert into Game(GameID,Date,Result,PlayingVenue,OpponentTeam)
@@ -87,6 +87,7 @@ insert into Game(GameID,Date,Result,PlayingVenue,OpponentTeam)
 values(004,'2017-09-08','Tie','Behind Corbett','The Jets');
 insert into Game(GameID,Date,Result,PlayingVenue,OpponentTeam)
 values(005,'2017-09-08','Tie','The Pit','Aggies');
+
 
 insert into Play(PlayerID,GameID)
 values(1010,001);
