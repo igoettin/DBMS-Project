@@ -1,5 +1,5 @@
 insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1010, 220, 'Sebastian', 'pass', '1993-12-01', 'Garcia', 'skeed44@nmsu.edu', 911, 'shooting guard');
+values(1010, 220, 'Sebastian', 'pass', '1993-12-01', 'Garcia', 'sebastian44@nmsu.edu', 911, 'shooting guard');
 insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
 values(1011, 221, 'Thomas', 'pass1', '1991-11-11', 'Orange Street', 'tom192@nmsu.edu', 9105112345, 'small forward');
 insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
@@ -33,15 +33,15 @@ values(34, 'Zack', '1984-02-09', 'North Carolina', 'zacl21@gmail.com', 101879175
 
 
 insert into ManagerCertificate(ManagerID,CertificateID,Certificate)
-values(10,40,NULL);
+values(10,40,null);
 insert into ManagerCertificate(ManagerID,CertificateID,Certificate)
-values(11,41,NULL);
+values(11,41,30);
 insert into ManagerCertificate(ManagerID,CertificateID,Certificate)
-values(12,42,NULL);
+values(12,42,'test string');
 insert into ManagerCertificate(ManagerID,CertificateID,Certificate)
-values(13,43,NULL);
+values(13,43,42.75);
 insert into ManagerCertificate(ManagerID,CertificateID,Certificate)
-values(14,44,NULL);
+values(14,44,'a');
 
 insert into Stats(PlayerID,Year,TotalPoints,ASPG)
 values(1010,2017,10,15);
@@ -92,11 +92,11 @@ values(005,'2017-09-08','Tie','The Pit','Aggies');
 insert into Play(PlayerID,GameID)
 values(1010,001);
 insert into Play(PlayerID,GameID)
-values(1011,001);
+values(1011,002);
 insert into Play(PlayerID,GameID)
-values(1012,002);
+values(1012,003);
 insert into Play(PlayerID,GameID)
-values(1013,003);
+values(1013,004);
 insert into Play(PlayerID,GameID)
-values(1014,004);
+values(1014,005);
 
