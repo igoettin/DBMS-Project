@@ -32,30 +32,30 @@ for each row
 delimiter ;
 
 create table Manager(
-    ID	                int,
+    ID	            int,
     LoginID	        varchar(16) not null,
     Name	        varchar(64) not null,
-    Password	        varchar(8),
-    Birthday	        date,
+    Password	    varchar(8),
+    Birthday	    date,
     Address	        varchar(128),
     Email	        varchar(32),
-    PhoneNumber	        char(10),
+    PhoneNumber	    char(10),
     primary key(ID)
 );
 
 create table Staff(
     ID		        int,
     Name	        varchar(64) not null,
-    Birthday	        date,
+    Birthday	    date,
     Address	        varchar(128),
     Email	        varchar(32),
-    PhoneNumber	        char(10),
+    PhoneNumber	    char(10),
     Title	        varchar(16) not null,
     primary key(ID)
 );
 
 create table ManagerCertificate(
-    ManagerID	        int,
+    ManagerID	    int,
     CertificateId	int,
     Certificate		blob, 
     primary key(ManagerID,CertificateId),
@@ -63,17 +63,17 @@ create table ManagerCertificate(
 );
 
 create table Stats(
-    PlayerID	        int,
+    PlayerID	    int,
     Year	        char(4),
-    TotalPoints	        int unsigned,
+    TotalPoints	    int unsigned,
     ASPG	        int unsigned,
     primary key(PlayerID,Year),
     foreign key(PlayerID) references Player(ID)
 );
 
 create table Training(
-    TrainingName	varchar(16),
-    Instruction		varchar(256) not null,
+    TrainingName	    varchar(16),
+    Instruction		    varchar(256) not null,
     TimePeriodInHour	int not null,
     primary key(TrainingName)
 );
@@ -113,7 +113,7 @@ delimiter ;
 
 
 create table Play(
-    PlayerID	        int,
+    PlayerID	int,
     GameID		int,
     primary key(PlayerID, GameID),
     foreign key(PlayerID) references Player(ID),
