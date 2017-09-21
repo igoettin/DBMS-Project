@@ -6,12 +6,12 @@ create table Player(
     ID		        int,
     LoginID	        varchar(16),
     Name	        varchar(64) not null,
-    Password	        varchar(8),
-    Birthday	        date,
-    Address             varchar(128),
-    Email	        varchar(32),
-    PhoneNumber	        char(10),
-    PlayPos	        varchar(16),
+    Password        varchar(8),
+    Birthday        date,
+    Address         varchar(128),
+    Email           varchar(32),
+    PhoneNumber     char(10),
+    PlayPos         varchar(16),
     primary key(ID)
 );
 
