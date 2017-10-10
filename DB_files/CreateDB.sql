@@ -12,6 +12,7 @@ create table Player(
     Email           varchar(32),
     PhoneNumber     char(10),
     PlayPos         varchar(16),
+    RequestFlag     int,
     primary key(ID)
 );
 

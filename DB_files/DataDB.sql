@@ -1,13 +1,13 @@
-insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1010, '220', 'Sebastian', 'pass', '1993-12-01', 'Garcia', 'sebastian44@nmsu.edu', '1214356911', 'shooting guard');
-insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1011, '221', 'Thomas', 'pass1', '1991-11-11', 'Orange Street', 'tom192@nmsu.edu', '9105112345', 'small forward');
-insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1012, '222', 'Jon', 'pass2', '1993-08-04', 'Blue Street', 'jon192781@nmsu.edu', '9102546577', 'point guard');
-insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1013, '223', 'Bob', 'pass3', '1993-01-14', 'Green Ave', 'bob2121@nmsu.edu', '7834758676', 'power forward');
-insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos)
-values(1014, '224', 'Derek', 'pass4', '1983-03-01', 'Red Street', 'derek2982@nmsu.edu', '8793921011', 'center');
+insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag)
+values(1010, '220', 'Sebastian', 'pass', '1993-12-01', 'Garcia', 'sebastian44@nmsu.edu', '1214356911', 'shooting guard', 1);
+insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag)
+values(1011, '221', 'Thomas', 'pass1', '1991-11-11', 'Orange Street', 'tom192@nmsu.edu', '9105112345', 'small forward', 1);
+insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag)
+values(1012, '222', 'Jon', 'pass2', '1993-08-04', 'Blue Street', 'jon192781@nmsu.edu', '9102546577', 'point guard', 1);
+insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag)
+values(1013, '223', 'Bob', 'pass3', '1993-01-14', 'Green Ave', 'bob2121@nmsu.edu', '7834758676', 'power forward', 1);
+insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag)
+values(1014, '224', 'Derek', 'pass4', '1983-03-01', 'Red Street', 'derek2982@nmsu.edu', '8793921011', 'center', 1);
 
 insert into Manager(ID,LoginID,Name,Password,Birthday,Address,Email,PhoneNumber)
 values(10, '20', 'Ryan', 'passw', '1994-11-05', 'Farm',  'ryan121@nmsu.edu', '4112345467');
