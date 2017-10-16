@@ -20,10 +20,10 @@
       // If result matched $myusername and $mypassword, table row must be 1 row
       if($p_count == 1) {
          //session_register("LoginID");
-         $_SESSION['login_user'] = $player_row; 
+         $_SESSION['login_user'] = $player_row['ID']; 
          header("location: player_view.php");
       }else if($m_count == 1){
-        $_SESSION['login_user'] = $manager_row;
+        $_SESSION['login_user'] = $manager_row['ID'];
          header("location: manager_welcome.php");
         }else {
          $error = "Your Login Name or Password is invalid";

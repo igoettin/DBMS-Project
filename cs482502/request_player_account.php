@@ -23,7 +23,7 @@
                     $new_ID = 0;
                 else
                     $new_ID = $max_lookup + 1;
-                mysql_query("insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag) values('$new_ID', '$new_username', '', '$new_password', '1995-01-01', '', '', '', 'center', 0);") || die(mysql_error());
+                mysql_query("insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag) values('$new_ID', '$new_username', 'New Player', '$new_password', '1995-01-01', '', '', '', 'center', 0);") || die(mysql_error());
                 $success = "New account successfully requested!";
             }
         }
