@@ -3,7 +3,7 @@
 <?php
     include("config.php");
     //session_start(); 
-    if(isset($_POST['cancel_new_account']))
+    if(isset($_POST['go_back_button']))
         header("location: login.php");
     else if(isset($_POST['submit_new_account'])){
         $new_username = trim($_POST['requested_login']);
@@ -18,7 +18,12 @@
                 $error = "LoginID already exists! Please choose a different one.";
             else {
                 //TODO: NEED TO CHANGE THE ID TO BE SELF INCREMENTING!
-                mysql_query("insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag) values(1009, '$new_username', '', '$new_password', '1995-01-01', '', '', '', 'center', 0);") || die(mysql_error());
+                $max_lookup = mysql_fetch_array(mysql_query("select max(ID) from Player;"))['max(ID)'];
+                if($max_lookup == null)
+                    $new_ID = 0;
+                else
+                    $new_ID = $max_lookup + 1;
+                mysql_query("insert into Player(ID, LoginID, Name, Password, Birthday, Address, Email, PhoneNumber, PlayPos, RequestFlag) values('$new_ID', '$new_username', '', '$new_password', '1995-01-01', '', '', '', 'center', 0);") || die(mysql_error());
                 $success = "New account successfully requested!";
             }
         }
@@ -57,7 +62,7 @@
                         <label> Enter a login ID for the new account: </label><input type = "text" name = "requested_login" class = "box"/><br/><br/>
                         <label> Enter a password for the new account: </label><input type = "password" name = "requested_pass" class = "box" /><br/><br/>
                         <input type = "submit" name = "submit_new_account" value = "  Submit  "/><br/>
-                        <input type = "submit" name = "cancel_new_account" value = "  Cancel  "/><br/>
+                        <input type = "submit" name = "go_back_button" value = "  Go Back  "/><br/>
                     </form>
                     <div style = "font-size:13px; color:#cc0000; "><?php echo $error; ?> </div>
                     <div style = "font-size:13px; color:#0cc719; "><?php echo $success; ?> </div>
