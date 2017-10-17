@@ -59,8 +59,8 @@
                 <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Request a new player account </b> </div>
                 <div style = "margin:30px;">
                     <form method = "post">
-                        <label> Enter a login ID for the new account: </label><input type = "text" name = "requested_login" class = "box"/><br/><br/>
-                        <label> Enter a password for the new account: </label><input type = "password" name = "requested_pass" class = "box" /><br/><br/>
+                        <label> Enter a login ID for the new account: </label><input type = "text" name = "requested_login" class = "box" maxlength = "16" /><br/><br/>
+                        <label> Enter a password for the new account: </label><input type = "password" name = "requested_pass" class = "box" maxlength = "8" /><br/><br/>
                         <input type = "submit" name = "submit_new_account" value = "  Submit  "/><br/>
                         <input type = "submit" name = "go_back_button" value = "  Go Back  "/><br/>
                     </form>

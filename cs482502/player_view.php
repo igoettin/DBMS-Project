@@ -3,7 +3,7 @@
     session_start();
     $p_ID = $_SESSION['login_user'];
     $player_query = mysql_query("select * from Player where ID = '$p_ID';");
-    $assign_training_query = mysql_query("select * from AssignTraining where PlayerID = '$p_ID';");
+    $assign_training_query = mysql_query("select * from AssignTraining, Manager where PlayerID = '$p_ID' and AssignTraining.ManagerID = Manager.ID;");
     $stats_query = mysql_query("select * from Stats where PlayerID = '$p_ID';"); 
 ?>
 <html>
@@ -42,12 +42,12 @@
                 </tr>
                 <tr>
                     <th> PlayerID </th>
-                    <th> ManagerID </th>
+                    <th> Manager Name </th>
                     <th> TrainingName </th>
                 </tr>
                 <?php
                     while($row = mysql_fetch_array($assign_training_query))
-                        print "<tr><td>".$row['PlayerID']."</td><td>".$row['ManagerID']."</td><td>".$row['TrainingName']."</td></tr>";
+                        print "<tr><td>".$row['PlayerID']."</td><td>".$row['Name']."</td><td>".$row['TrainingName']."</td></tr>";
                 ?> 
             </table>
             <br><br>
