@@ -99,7 +99,6 @@
                         <label> Address: </label> <input type = "text" name = "address_input" class = "box" maxlength = "128" value = "<?php print $player_row['Address'];?>" /><br><br>
                         <label> Email: </label> <input type = "text" name = "email_input" class = "box" maxlength = "32" value = "<?php print $player_row['Email'];?>" /><br><br>
                         <label> Phone Number: </label> <input type = "text" name = "phone_number_input" class = "box" maxlength = "10" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" value = "<?php print $player_row['PhoneNumber'];?>" /><br><br>
-                        <!-- FIX THIS -->
                         <label> PlayPos: </label>
                         <select name = "pos" >
                                 <option value = "point guard"> Point Guard</option>

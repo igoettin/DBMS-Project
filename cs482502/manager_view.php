@@ -59,6 +59,10 @@
             unset($_POST['vmi']);
             header("location: view_players.php");
         }
+        if(isset($_POST['vamt'])){
+            unset($_POST['vamt']);
+            header("location: view_and_modify_trainings.php");
+        }
 
         if(isset($_POST['lg'])){
             unset($_POST['lg']);

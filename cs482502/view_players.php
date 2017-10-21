@@ -3,8 +3,8 @@
     include("manager_view.php");
     session_start();
     $p_ID = $_SESSION['login_user'];
-    $player_query = mysql_query("select * from Player;");
-    $stats_query = mysql_query("select * from Stats;"); 
+    $player_query = mysql_query("select * from Player order by Player.Name asc;");
+    $stats_query = mysql_query("select * from Stats order by Stats.PlayerID asc;"); 
 ?>
 <html>
     
