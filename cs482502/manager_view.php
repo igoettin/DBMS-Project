@@ -51,6 +51,12 @@
     </form>
 
     <?php
+        
+        if(isset($_POST['attp'])){
+            unset($_POST['attp']);
+            header("location: assign_trainings_to_players.php");
+        }
+
         if(isset($_POST['vmi'])){
             unset($_POST['vmi']);
             header("location: manager_info.php");
