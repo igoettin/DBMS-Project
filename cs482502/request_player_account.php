@@ -17,7 +17,6 @@
             if(mysql_num_rows($login_lookup) > 0)
                 $error = "LoginID already exists! Please choose a different one.";
             else {
-                //TODO: NEED TO CHANGE THE ID TO BE SELF INCREMENTING!
                 $max_lookup = mysql_fetch_array(mysql_query("select max(ID) from Player;"))['max(ID)'];
                 if($max_lookup == null)
                     $new_ID = 0;

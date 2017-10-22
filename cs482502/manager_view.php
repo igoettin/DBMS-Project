@@ -52,6 +52,11 @@
 
     <?php
         
+        if(isset($_POST['vamg'])){
+            unset($_POST['vamg']);
+            header("location: view_and_modify_games.php");
+        }
+ 
         if(isset($_POST['attp'])){
             unset($_POST['attp']);
             header("location: assign_trainings_to_players.php");
