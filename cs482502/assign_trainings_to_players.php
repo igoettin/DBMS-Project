@@ -7,9 +7,13 @@
 
 <?php 
     if(isset($_POST['assign_button'])){
+        $action_select = $_POST['action_select'];
         $player_select = $_POST['player_select'];
         $training_select = $_POST['training_select'];
-        mysql_query("insert into AssignTraining(PlayerID, ManagerID, TrainingName) values('$player_select','$p_ID','$training_select');");
+        if($action_select === "assign_action") 
+            mysql_query("insert into AssignTraining(PlayerID, ManagerID, TrainingName) values('$player_select','$p_ID','$training_select');");
+        else if ($action_select === "remove_action")
+            mysql_query("delete from AssignTraining where PlayerID = '$player_select' and ManagerID = '$p_ID' and TrainingName = '$training_select';");
     }
     unset($_POST['assign_button']);
 ?>
@@ -30,14 +34,22 @@
             <!-- Assign new training to a player table -->
             <table border = '3'>
                 <tr>
-                    <th colspan='2'><h3> Assign a new training to a player </h3></th>
+                    <th colspan='3'><h3> Assign a new training to a player / Remove existing training assigned to a player</h3></th>
                 </tr>
                 <tr>
+                    <th>Action to Perform</th>
                     <th>Player [ID, LoginID, Name]</th>
                     <th>New Training</th>
                 </tr>
                 <form method = "post">
                 <tr>
+                        <td>
+                            <select required name = "action_select">
+                                <option value = "">None</option>
+                                <option value = "assign_action">Assign new training</option>
+                                <option value = "remove_action">Remove existing training</option>
+                            </select>
+                        </td>
                         <td>
                             <select required name = "player_select"> 
                                 <option value = "">None</option>
@@ -63,7 +75,7 @@
                         </td>
                 </tr>
                 <tr>
-                        <td colspan = '3'><input type = "submit" name = "assign_button" value = "Assign new training" class = "op"/></td>
+                        <td colspan = '3'><input type = "submit" name = "assign_button" value = "Assign new training/Remove existing training" class = "op"/></td>
                 </tr>
                 </form>
             </table>
