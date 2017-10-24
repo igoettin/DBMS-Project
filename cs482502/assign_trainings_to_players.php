@@ -56,7 +56,8 @@
                                 <?php
                                     $player_query = (mysql_query("select * from Player;"));
                                     while($row = mysql_fetch_array($player_query)){
-                                        print "<option value = ".$row['ID'].">[".$row['ID'].", ".$row['LoginID'].", ".$row['Name']."]</option>";
+                                        $row_value = $row['ID'];
+                                        print "<option value = \"$row_value\">[".$row['ID'].", ".$row['LoginID'].", ".$row['Name']."]</option>";
                                     }
                                 ?>
                             </select>
@@ -67,7 +68,8 @@
                                 <?php
                                     $training_query = mysql_query("select * from Training;");
                                     while($row = mysql_fetch_array($training_query)){
-                                        print "<option value = ".$row['TrainingName'].">".$row['TrainingName']."</option>";
+                                        $row_value = $row['TrainingName'];
+                                        print "<option value = \"$row_value\">".$row['TrainingName']."</option>";
                                     }
                                 ?>
                             </select>
