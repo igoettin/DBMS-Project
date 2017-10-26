@@ -1,18 +1,7 @@
 <!-- File to reset the player's password -->
 <!doctype html>
 <?php
-    function check_month_day($month, $day){
-        if($day < 1) 
-            return false;
-        else if(($month == 1 || $month == 3 || $month == 5 || $month == 7 || $month == 8 || $month == 10 || $month == 12) && $day <= 31) 
-            return true;
-        else if($month == 2 && $day <= 29) 
-            return true;
-        else if(($month == 4 || $month == 6 || $month == 9 || $month == 11) && $day <= 30) 
-            return true;
-        else
-            return false;
-    } 
+    include("check_month_day.php");
     include("config.php");
     session_start();
     $p_ID = $_SESSION['login_user'];
@@ -48,11 +37,11 @@
         else if(strlen($new_phone_number) < 10)
             $error = "Invalid phone number! There must be at least 10 digits.";
         else if(strlen($new_year) < 4)
-            $error = "The year of your birthday must be at least 4 digits long!";
+            $error = "The year of your birthday must be 4 digits long!";
         else if(strlen($new_month) < 2)
-            $error = "The month of your birthday must be at least 2 digits long! \n Append a 0 to single digit months (i.e. 01 for January).";
+            $error = "The month of your birthday must be 2 digits long! \n Append a 0 to single digit months (i.e. 01 for January).";
         else if(strlen($new_day) < 2)
-            $error = "The day of your birthday must be at least 2 digits long! \n Append a 0 to single digit days (i.e. 01 for 1).";
+            $error = "The day of your birthday must be 2 digits long! \n Append a 0 to single digit days (i.e. 01 for 1).";
         else if(check_month_day((int)$new_month, (int)$new_day) == false)
             $error = "The day and month of your birthday are invalid.";
         else {
