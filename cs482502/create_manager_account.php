@@ -1,95 +1,108 @@
+<!-- File to reset the player's password -->
 <!doctype html>
+<?php
+    include("check_month_day.php");
+    include("config.php");
+    session_start();
+    $p_ID = $_SESSION['login_user'];
+    if(isset($_POST['go_back_button']))
+        header("location: login.php");
+    else if(isset($_POST['submit_info'])){
+        $new_password = $_POST['password_input'];
+        $new_name = $_POST['name_input'];
+        $new_year = ($_POST['year_bday']);
+        $new_month = ($_POST['month_bday']);
+        $new_day = ($_POST['day_bday']);
+        $new_address = ($_POST['address_input']);
+        $new_email = ($_POST['email_input']);
+        $new_phone_number = ($_POST['phone_number_input']);
+        $play_pos = $_POST['pos'];
+        if(empty($new_password))
+            $error = "No password is given!";
+        if(empty($new_name))
+            $error = "No player name is given!";
+        else if(empty($new_year))
+            $error = "No year is given for the birthday!";
+        else if(empty($new_month))
+            $error = "No month is given for the birthday!";
+        else if(empty($new_day))
+            $error = "No day is given for the birthday!";
+        else if(empty($new_address))
+            $error = "No address is given!";
+        else if(empty($new_email))
+            $error = "No email is given!";
+        else if(empty($new_phone_number))
+            $error = "No phone number is given!";
+        else if(strlen($new_phone_number) < 10)
+            $error = "Invalid phone number! There must be at least 10 digits.";
+        else if(strlen($new_year) < 4)
+            $error = "The year of your birthday must be 4 digits long!";
+        else if(strlen($new_month) < 2)
+            $error = "The month of your birthday must be 2 digits long! \n Append a 0 to single digit months (i.e. 01 for January).";
+        else if(strlen($new_day) < 2)
+            $error = "The day of your birthday must be 2 digits long! \n Append a 0 to single digit days (i.e. 01 for 1).";
+        else if(check_month_day((int)$new_month, (int)$new_day) == false)
+            $error = "The day and month of your birthday are invalid.";
+        else {
+            $birthday_complete = $new_year."-".$new_month."-".$new_day;
+            $max_lookup = mysql_fetch_array(mysql_query("select max(ID) from Manager;"))['max(ID)'];
+            if($max_lookup == null)
+                $manager_id = 0;
+            else
+                $manager_id = $max_lookup + 1;
+            mysql_query("insert into Manager(ID,LoginID,Name,Password,Birthday,Address,Email,PhoneNumber) values('$manager_id', '', 'Ryan', 'passw', '1994-11-05', 'Farm',  'ryan121@nmsu.edu', '4112345467');") || die(mysql_error());
+            $success = "Your account details have been successfully updated!";
+            $player_row = mysql_fetch_array(mysql_query("select * from Player where ID = '$p_ID';"));
+        }
+    }
+
+?>
 <html>
     <head>
-        <style>
-            body{font-family: "Helvetica", sans-serif;}
+        <title> Edit Player Information </title>
 
-            div.tab{
-                overflow: hidden;
-                border: 2px solid #555559;
-                background-color: #c9c7c7;
+        <style type = "text/css">
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size:14px;
             }
 
-            div.tab button{
-                background-color: inherit;
-                float: left;
-                cursor: pointer;
-                padding: 20px 20px;
-                transition: 0.4s;
-                font-size: 15px;
+            label {
+                font-weight:bold;
+                width:100px;
+                font-size:14px;
             }
 
-            div.tab button:hover{background-color: #F78383;} 
-            div.tab button.active{background-color: #F52222;}
+            .box {
+                border:#666666 solid 1px;
 
-            .tabcontent{
-                display: none;
-                padding: 20px 20px;
-                border: 1px solid #c9c7c7;
-                border-top: none;
             }
         </style>
     </head>
-<body>
+    <body>
+        
+        <div align = "center">
+            <div style = "width:500px; border: solid 1 px #333333; " align = "left">
+                <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Create Manager Account</b> </div>
+                <div style = "margin:30px;">
+                    <form method = "post">
+                        <label> Password: </label><input type = "text" name = "password_input" class = "box" maxlength = "8" /><br><br>
+                        <label> Player Name: </label><input type = "text" name = "name_input" class = "box" maxlength = "64" /><br><br>
+                        <label> Birthday (Year-Month-Day): </label><input type = "text" name = "year_bday" class = "box" size = "4" maxlength = "4" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" />-<input type = "text" name = "month_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" />-<input type = "text" name = "day_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" /><br><br>
+                        <label> Address: </label> <input type = "text" name = "address_input" class = "box" maxlength = "128" /><br><br>
+                        <label> Email: </label> <input type = "text" name = "email_input" class = "box" maxlength = "32" /><br><br>
+                        <label> Phone Number: </label> <input type = "text" name = "phone_number_input" class = "box" maxlength = "10" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" /><br><br>
+                        <br><br>
+                        <input type = "submit" name = "submit_info" value = "  Submit  "/><br/>
+                        <input type = "submit" name = "go_back_button" value = "  Go Back  "/><br/>
+                    </form>
+                    <div style = "font-size:13px; color:#cc0000; "><?php echo $error; ?> </div>
+                    <div style = "font-size:13px; color:#0cc719; "><?php echo $success; ?> </div>
+                </div>
+            </div>
 
-    <div class = "tab">
-        <button class = "tablinks" onclick="change_menu(event,'View Manager Info')">View Manager Info </button>
-        <button class = "tablinks" onclick="change_menu(event,'Edit Manager Info')">Edit Manager Info </button>
-        <button class = "tablinks" onclick="change_menu(event,'View Players')">View Players</button>
-        <button class = "tablinks" onclick="change_menu(event,'View and Modify Trainings')">View and Modify Trainings </button>
-        <button class = "tablinks" onclick="change_menu(event,'Assign Trainings to Players')">Assign Trainings to Players </button>
-        <button class = "tablinks" onclick="change_menu(event,'View and Modify Games')">View and Modify Games</button>
-        <button class = "tablinks" onclick="change_menu(event,'Assign Players to Games')">Assign Players to Games</button>
-        <button class = "tablinks" onclick="change_menu(event,'Approve player log-in requests')">Approve player login-in requests</button>
-    </div>
+        </div>
 
-    <div id="View Manager Info" class = "tabcontent">
-        <h3>Manager info goes here</h3>
-    </div>
+    </body>
 
-    <div id="Edit Manager Info" class = "tabcontent">
-        <h3>Edit manager info goes here</h3>
-    </div>
-
-    <div id="View Players" class = "tabcontent">
-        <h3>Player info goes here</h3>
-    </div>
-
-    <div id="View and Modify Trainings" class = "tabcontent">
-        <h3>Modify info goes here</h3>
-    </div>
-
-    <div id="Assign Trainings to Players" class = "tabcontent">
-        <h3>Assign trainings goes here</h3>
-    </div>
-
-    <div id="View and Modify Games" class = "tabcontent">
-        <h3>Manager info goes here</h3>
-    </div>
-
-
-    <div id="Assign Players" class = "tabcontent">
-        <h3>Assign players games go here</h3>
-    </div>
-
-    <div id="Approve player log-in requests" class = "tabcontent">
-        <h3>Approve log in requests go here</h3>
-    </div>
-
-    <script>
-        function change_menu(event, tabName){
-            var i, content, link;
-            content = document.getElementsByClassName("tabcontent");
-            //Set each tab's content to none so we can't see it.
-            for(i = 0; i < content.length; i++)
-                content[i].style.display = "none"
-            links = document.getElementsByClassName("tablinks");
-            //Set each tab link to be non-active so they aren't shown as selected to the user.
-            for(i = 0; i < links.length; i++)
-                links[i].className = links[i].className.replace(" active","");
-            //Set the selected tab to active and make its content appear
-            document.getElementByID(tabName).style.display = "block";
-            event.currentTarget.className = " active";
-        }
-    </script>
-</body>
+</html>

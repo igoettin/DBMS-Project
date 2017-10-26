@@ -52,6 +52,16 @@
 
     <?php
         
+        if(isset($_POST['ap'])){
+            unset($_POST['ap']);
+            header("location: approve_login_requests.php");
+        }
+ 
+        if(isset($_POST['aptg'])){
+            unset($_POST['aptg']);
+            header("location: assign_players_to_games.php");
+        }
+ 
         if(isset($_POST['vamg'])){
             unset($_POST['vamg']);
             header("location: view_and_modify_games.php");
