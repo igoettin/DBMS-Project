@@ -20,7 +20,7 @@
         $play_pos = $_POST['pos'];
         if(empty($new_password))
             $error = "No password is given!";
-        if(empty($new_name))
+        else if(empty($new_name))
             $error = "No player name is given!";
         else if(empty($new_year))
             $error = "No year is given for the birthday!";
