@@ -52,6 +52,11 @@
 
     <?php
         
+        if(isset($_POST['emi'])){
+            unset($_POST['emi']);
+            header("location: edit_manager_info.php");
+        }
+        
         if(isset($_POST['ap'])){
             unset($_POST['ap']);
             header("location: approve_login_requests.php");
