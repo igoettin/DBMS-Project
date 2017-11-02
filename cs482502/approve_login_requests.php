@@ -19,11 +19,9 @@
         $success = "All checked login IDs have been approved!";
     }
     else if(isset($_POST['update_button'])){
-        //echo "test";
         $row_num = 0;
         $player_query = mysql_query("select * from Player where RequestFlag = 1;");
         while($row = mysql_fetch_array($player_query)){
-            echo $row_num;
             if(isset($_POST["update{".$row_num."}"])){
                 $login_id = $row['LoginID'];
                 $password = $_POST['password{'.$row_num.'}'];

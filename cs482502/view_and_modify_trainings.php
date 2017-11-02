@@ -32,8 +32,8 @@
             $row_num++;
         }
         if($row_num == mysql_num_rows($training_query)){
-            $_SESSION['update_button'] = 1;
-            header("location: vamt_success.php");
+            $success_update = "All checked trainings have been successfully updated!";
+            $training_query = mysql_query("select * from Training order by TrainingName asc;");
         }
     }
     else if(isset($_POST['delete_button'])){
@@ -46,8 +46,8 @@
             }
             $row_num++;
         }
-        $_SESSION['delete_button'] = 1;
-        header("location: vamt_success.php");
+        $success_delete = "All checked trainings have been successfully deleted!";
+        $training_query = mysql_query("select * from Training order by TrainingName asc;");
     }
     else if(isset($_POST['add_button'])){
         $training_name = $_POST['add_name'];
@@ -64,8 +64,8 @@
             $error_add = "Cannot add new training; the TrainingName already exists! It must be unique.";
         else{
             mysql_query("insert into Training(TrainingName,Instruction,TimePeriodInHour) values('$training_name','$instruction','$time_period')");
-            $_SESSION['add_button'] = 1;
-            header("location: vamt_success.php");
+            $success_add = "The new training has been successfully added!"; 
+            $training_query = mysql_query("select * from Training order by TrainingName asc;");
         }
         
     }
@@ -86,6 +86,7 @@
     </head>
     <body>
     <div class = tabcontent>
+            <div style = "font-size:13px; color:#009933; "><?php echo $success_add; ?> </div>
             <div style = "font-size:13px; color:#cc0000;"><?php print $error_add; ?></div>
             <!-- Add new training table -->
             <table border = '3'>
@@ -101,7 +102,7 @@
                 <tr>
                         <td><input type = "text" name = "add_name" maxlength = "16"/></td>
                         <td><textarea name = "add_instruction" maxlength = "256"></textarea></td>
-                        <td><input type = "text" name = "add_hours" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                        <td><input type = "text" name = "add_hours" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength = "9"/></td>
                 </tr>
                 <tr>
                         <td colspan = '3'><input type = "submit" name = "add_button" value = "Add new training" class = "op"/></td>
@@ -109,6 +110,8 @@
                 </form>
             </table>
             </br></br>
+            <div style = "font-size:13px; color:#009933;"><?php print $success_update; ?></div>
+            <div style = "font-size:13px; color:#009933;"><?php print $success_delete; ?></div>
             <div style = "font-size:13px; color:#cc0000;"><?php print $error; ?></div>
             <!-- List of Trainings table -->
             <table border = '3'>
@@ -134,7 +137,7 @@
                         $time_period_name = $row['TimePeriodInHour']."{".$row_num."}";
                         print "<tr><td>".$training_name." </td>
                                 <td style = \"height: 70px\">"."<textarea name =\"INS{".$row_num."}\" maxlength = \"256\">".$instruction."</textarea> </td>
-                                <td>"."<input type = \"text\" name =\"TP{".$row_num."}\"value =\"".$time_period."\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\"/></td>"
+                                <td>"."<input type = \"text\" name =\"TP{".$row_num."}\"value =\"".$time_period."\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\" maxlength = \"9\"/></td>"
                                 ."<td><input type = \"checkbox\" name = \"update{".$row_num."}\" /></td>";
                         print"<td>";
                         $check_deletion = mysql_num_rows(mysql_query("select * from Player, AssignTraining, Training where Player.ID = AssignTraining.PlayerID and AssignTraining.TrainingName = '$training_name';"));

@@ -63,9 +63,9 @@
             <div style = "margin:30px">
                
                <form action = "" method = "post">
-                  <label>UserName  :</label><input type = "text" name = "username" class = "box" maxlength = 16 /><br/><br />
-                  <label>Password  :</label><input type = "password" name = "password" class = "box" maxlength = 8 /><br/><br />
-                  <input type = "submit" value = " Submit "/><br />
+                  <label>Username: </label><input type = "text" name = "username" class = "box" maxlength = 16 /><br/><br />
+                  <label>Password: </label><input type = "password" name = "password" class = "box" maxlength = 8 /><br/><br />
+                  <div align = "center"><input type = "submit" value = " Submit "/><br /></div>
                </form>
                
                <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
@@ -75,8 +75,8 @@
          </div>
 			
       </div>
-      <h3><a href = "request_player_account.php">Request a new player account</a></h3>
-      <h3><a href = "create_manager_account.php">Create a new manager account</a></h3>
-      <h3><a href = "reset_password.php">Reset Password</a></h3>
+      <div align = "center"><h3><a href = "request_player_account.php">Request a new player account</a></h3></div>
+      <div align = "center"><h3><a href = "create_manager_account.php">Create a new manager account</a></h3></div>
+      <div align = "center"><h3><a href = "reset_password.php">Reset Password</a></h3></div>
    </body>
 </html>

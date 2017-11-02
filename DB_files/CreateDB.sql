@@ -58,7 +58,7 @@ create table Staff(
 create table ManagerCertificate(
     ManagerID	    int,
     CertificateId	int,
-    Certificate		blob, 
+    Certificate		longblob, 
     primary key(ManagerID,CertificateId),
     foreign key(managerID) references Manager(ID)
 );

@@ -61,8 +61,25 @@
             else
                 $new_ID = $max_lookup + 1;
             mysql_query("insert into ManagerCertificate(ManagerID, CertificateId, Certificate) values('$p_ID','$new_ID','".mysql_escape_string($file_content)."');") || die(mysql_error());
+            $success_upload = "Your new certificate has been successfully uploaded!";
         }
     }
+    else if(isset($_POST['reupload_cert'])){
+        $tmp_name = $_FILES['reupload_file']['tmp_name'];
+        $file_content = file_get_contents($tmp_name);
+        if(empty($file_content))
+            $error_reupload = "No certificate given for reupload!";
+        else{
+            $cert_id = $_POST['reupload_id'];
+            mysql_query("update ManagerCertificate set Certificate = '".mysql_escape_string($file_content)."' where ManagerID = '$p_ID' and CertificateId = '$cert_id';");
+            $success_reupload = "Your certificate has been successfully re-uploaded!";
+        }
+
+    }
+
+    unset($_POST['submit_info']);
+    unset($_POST['upload_cert']);
+    unset($_POST['reupload_cert']);
 
 ?>
 <html>
@@ -81,7 +98,7 @@
     <body>
         <br><br>
         <div style = "font-size:13px; color:#cc0000; "><?php echo $error; ?> </div>
-        <div style = "font-size:13px; color:#0cc719; "><?php echo $success; ?> </div>
+        <div style = "font-size:13px; color:#009933; "><?php echo $success; ?> </div>
         <table border = '3'>
                 <tr>
                    <th colspan = '6'><h3> Edit Manager Information </h3></h3> 
@@ -97,7 +114,7 @@
                 <tr>
                     <form method = "post">
                         <td><input type = "text" name = "name_input" class = "box" maxlength = "64" value = "<?php print $manager_row['Name'];?>" /></td>
-                        <td><input type = "text" name = "password_input" class = "box" maxlength = "8" value = "<?php print $manager_row['Password']; ?>"/></td>
+                        <td><input type = "password" name = "password_input" class = "box" maxlength = "8" value = "<?php print $manager_row['Password']; ?>"/></td>
                         <td><input type = "text" name = "year_bday" class = "box" size = "4" maxlength = "4" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" value = "<?php print date('Y', strtotime($manager_row['Birthday']));?>" />-<input type = "text" name = "month_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" value = "<?php print date('m',strtotime($manager_row['Birthday']));?>" />-<input type = "text" name = "day_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" value = "<?php print date('d',strtotime($manager_row['Birthday']));?>" /></td>
                         <td><input type = "text" name = "address_input" class = "box" maxlength = "128" value = "<?php print $manager_row['Address'];?>" /></td>
                         <td><input type = "text" name = "email_input" class = "box" maxlength = "32" value = "<?php print $manager_row['Email'];?>" /></td>
@@ -107,6 +124,7 @@
                     </form>
         </table>
         <br><br>
+        <div style = "font-size:13px; color:#009933; "><?php echo $success_upload; ?> </div>
         <div style = "font-size:13px; color:#cc0000; "><?php echo $error_upload; ?> </div>
         <!-- Upload new cert table -->
         <table border = '3'>
@@ -124,17 +142,29 @@
         </table>
         <br><br>
         <!-- Re-upload an existing certificate -->
-        <table border = '3' colspan = '2'>
+        <div style = "font-size:13px; color:#009933; "><?php echo $success_reupload; ?> </div>
+        <div style = "font-size:13px; color:#cc0000; "><?php echo $error_reupload; ?> </div>
+        <table border = '3'>
             <form method = "post" enctype="multipart/form-data">
             <tr>
-                <th> Re-upload an existing certificate </th>
+                <th colspan = '2'> Re-upload an existing certificate </th>
             </tr>    
             <tr>
-               <!-- TODO: Select option for CertificateId --> 
+               <td>
+                    <select required name = "reupload_id">
+                        <option value = "">None</option>
+                        <?php
+                            $certificate_query = mysql_query("select CertificateId from ManagerCertificate where ManagerID = '$p_ID';");
+                            while($row = mysql_fetch_array($certificate_query)){
+                                print "<option value = \"".$row['CertificateId']."\">".$row['CertificateId']."</option>";
+                            }
+                        ?>
+                    </select>
+               </td>
                <td><input type = "file" name = "reupload_file" id = "reupload_file"></td>
             </tr>
             <tr>
-                <td><input type = "submit" value = "Re-upload Certificate" name = "upload_cert" class = "op"></td>
+                <td colspan = '2'><input type = "submit" value = "Re-upload Certificate" name = "reupload_cert" class = "op"></td>
             </tr>
             </form>
         </table>

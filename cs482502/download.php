@@ -1,8 +1,10 @@
 <?php
     include("config.php");
     session_start();
-    $row = mysql_fetch_array(mysql_query("select Certificate from ManagerCertificate where ManagerID = 14;"));
-    header('Content-Disposition: attachment; filename = "sailors2.jpg"');
-    echo $row['Certificate'];   
+    $row = $_SESSION['download_array'];
+    $filename = "certificate".$row['CertificateId'].".jpg";
+    #header('Content-Disposition: attachment; filename = "'.$filename.'"');
+    header('Content-Disposition: attachment; filename = "'.$filename.'"');
+    echo $row['Certificate'];
 
 ?>

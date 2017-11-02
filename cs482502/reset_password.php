@@ -58,8 +58,8 @@
     <body>
         
         <div align = "center">
-            <div style = "width:500px; border: solid 1 px #333333; " align = "left">
-                <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Edit account information</b> </div>
+            <div style = "width:500px; border:1px solid black; " align = "left">
+                <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Reset password</b> </div>
                 <div style = "margin:30px;">
                     <form method = "post">
                         <label> LoginID: </label><input type = "text" name = "loginID_input" class = "box" maxlength = "16"/><br><br>
