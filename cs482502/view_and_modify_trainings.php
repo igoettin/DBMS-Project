@@ -94,9 +94,9 @@
                     <th colspan='3'><h3> Add a new training </h3></th>
                 </tr>
                 <tr>
-                    <th>TrainingName</th>
+                    <th>Training Name</th>
                     <th>Instruction</th>
-                    <th>TimePeriodInHour</th>
+                    <th>Time Period In Hour</th>
                 </tr>
                 <form method = "post">
                 <tr>
@@ -130,11 +130,8 @@
                     $row_num = 0;
                     while($row = mysql_fetch_array($training_query)){
                         $training_name = $row['TrainingName'];
-                        $training_name_name = $row['TrainingName']."{".$row_num."}";
                         $instruction = $row['Instruction'];
-                        $instruction_name = $row['Instruction']."{".$row_num."}";
                         $time_period = $row['TimePeriodInHour'];
-                        $time_period_name = $row['TimePeriodInHour']."{".$row_num."}";
                         print "<tr><td>".$training_name." </td>
                                 <td style = \"height: 70px\">"."<textarea name =\"INS{".$row_num."}\" maxlength = \"256\">".$instruction."</textarea> </td>
                                 <td>"."<input type = \"text\" name =\"TP{".$row_num."}\"value =\"".$time_period."\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\" maxlength = \"9\"/></td>"
@@ -158,7 +155,6 @@
                 </tr>
             </table>
             <br><br>
-            </table>
     </div>
     </body>
 </html>

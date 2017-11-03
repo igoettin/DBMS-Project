@@ -3,31 +3,23 @@
    session_start();
 
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        // username and password sent from form 
-
-        //$myusername = mysql_real_escape_string($con,$_POST['LoginID']);
-        //$mypassword = mysql_real_escape_string($con,$_POST['Password']); 
-        $myusername = trim($_POST['username']);
-        $mypassword = trim($_POST['password']);
-        $player_query = mysql_query("SELECT * FROM Player WHERE LoginID = '$myusername' and Password = '$mypassword' and RequestFlag = 1;");
-        $manager_query = mysql_query("SELECT * FROM Manager WHERE LoginID = '$myusername' and Password = '$mypassword';");
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+        $player_query = mysql_query("SELECT * FROM Player WHERE LoginID = '$username' and Password = '$password' and RequestFlag = 1;");
+        $manager_query = mysql_query("SELECT * FROM Manager WHERE LoginID = '$username' and Password = '$password';");
         $player_row = mysql_fetch_array($player_query);
         $manager_row = mysql_fetch_array($manager_query);
-      //$active = $row['active'];
-      
-      $p_count = mysql_num_rows($player_query);
-      $m_count = mysql_num_rows($manager_query);
-      // If result matched $myusername and $mypassword, table row must be 1 row
-      if($p_count == 1) {
-         //session_register("LoginID");
-         $_SESSION['login_user'] = $player_row['ID']; 
-         header("location: player_view.php");
-      }else if($m_count == 1){
-        $_SESSION['login_user'] = $manager_row['ID'];
-         header("location: manager_view.php");
-        }else {
-         $error = "Your Login Name or Password is invalid";
-      }
+        $p_count = mysql_num_rows($player_query);
+        $m_count = mysql_num_rows($manager_query);
+        if($p_count == 1) {
+            $_SESSION['login_user'] = $player_row['ID']; 
+            header("location: player_view.php");
+        }else if($m_count == 1){
+            $_SESSION['login_user'] = $manager_row['ID'];
+            header("location: manager_view.php");
+        }else{
+            $error = "Your Login ID and/or Password is invalid";
+        }
    }
 ?>
 <html>

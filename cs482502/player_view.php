@@ -1,72 +1,68 @@
+<!doctype html>
 <?php
-    include("config.php");
+    include("config.txt");
     session_start();
-    $p_ID = $_SESSION['login_user'];
-    $player_query = mysql_query("select * from Player where ID = '$p_ID';");
-    $assign_training_query = mysql_query("select * from AssignTraining, Manager where PlayerID = '$p_ID' and AssignTraining.ManagerID = Manager.ID;");
-    $stats_query = mysql_query("select * from Stats where PlayerID = '$p_ID';"); 
 ?>
 <html>
-    
     <head>
-        <title>Player Welcome </title>
+        <style>
+            body{font-family: "Helvetica", sans-serif;}
+            input.middle:focus{outline-width: 0;}
+            div.tab{
+                overflow: hidden;
+                border: 2px solid #555559;
+                background-color: #c9c7c7;
+            }
+
+            div.tab input{
+                background-color: inherit;
+                float: left;
+                cursor: pointer;
+                padding: 20px 20px;
+                transition: 0.4s;
+                font-size: 12px;
+            }
+            
+            div.tab button.vmi{background-color: #32ff32;}
+        
+            div.tab input:hover{background-color: #66ccff;} 
+
+            .tabcontent{
+                padding: 20px 20px;
+                border: 1px solid #c9c7c7;
+                border-top: none;
+            }
+        </style>
     </head>
-    <body>
-        <h1>Welcome <?php print mysql_fetch_array(mysql_query("select Name from Player where ID = '$p_ID';"))['Name']."!"; ?></h1> 
-            <!-- Player info table -->
-            <table border = '3'>
-                <tr>
-                    <th colspan='9'> <h3> Player Information | <a href = "edit_player.php">Edit Info</a></h3></th>
-                </tr>
-                <tr>
-                    <th> ID </th> 
-                    <th> LoginID </th> 
-                    <th> Name </th> 
-                    <th> Password </th>
-                    <th> Birthday </th> 
-                    <th> Address </th> 
-                    <th> Email </th> 
-                    <th> PhoneNumber </th> 
-                    <th> PlayPos </th>
-                </tr>
-                <?php
-                    while($row = mysql_fetch_array($player_query))
-                        print "<tr><td>".$row['ID']."</td><td>".$row['LoginID']."</td><td>".$row['Name']."</td><td>".$row['Password']."</td><td>".$row['Birthday']."</td><td>".$row['Address']."</td><td>".$row['Email']."</td><td>".$row['PhoneNumber']."</td><td>".$row['PlayPos']."</td></tr>";
-                ?>
-            </table>
-            <br><br>
-            <!-- Table to show the assigned trainings for the player -->
-            <table border = '3'>
-                <tr>
-                    <th colspan='3'> <h3> Assigned Trainings </h3> </th>
-                </tr>
-                <tr>
-                    <th> PlayerID </th>
-                    <th> Manager Name </th>
-                    <th> TrainingName </th>
-                </tr>
-                <?php
-                    while($row = mysql_fetch_array($assign_training_query))
-                        print "<tr><td>".$row['PlayerID']."</td><td>".$row['Name']."</td><td>".$row['TrainingName']."</td></tr>";
-                ?> 
-            </table>
-            <br><br>
-            <!-- Table to show the stats for the player -->
-            <table border = '3'>
-                <tr>
-                    <th colspan='4'><h3> Player Stats </h3> </th> 
-                </tr>
-                <tr>
-                    <th> PlayerID </th>
-                    <th> Year </th>
-                    <th> TotalPoints </th>
-                    <th> ASPG </th>
-                </tr>
-                <?php
-                    while($row = mysql_fetch_array($stats_query))
-                        print "<tr><td>".$row['PlayerID']."</td><td>".$row['Year']."</td><td>".$row['TotalPoints']."</td><td>".$row['ASPG']."</td><tr>";
-                ?>
-            </table>
-        <h2><a href = "logout.php">Log Out</a></h2>
-    </body>
-</html>
+<body>
+    <form method = "post">
+    <div class = "tab">
+        <input type = "submit" name = "vpi" class = "vpi" value = "View Player Information, Assigned Trainings, and Player Statistics"/> 
+        <input type = "submit" name = "epi" class = "epi" value = "Edit Player Information"/> 
+        <input type = "submit" name = "eps" class = "eps" value = "Edit Player Statistics"/>
+        <input type = "submit" name = "lg" class = "lg" value = "Logout"/>
+    </div>
+    </form>
+
+    <?php
+        if(isset($_POST['vpi'])){
+            unset($_POST['vpi']);
+            header("location: player_info.php");
+        }
+
+        if(isset($_POST['epi'])){
+            unset($_POST['epi']);
+            header("location: edit_player_info.php");
+        }
+        
+        if(isset($_POST['eps'])){
+            unset($_POST['eps']);
+            header("location: edit_player_stats.php");
+        }
+
+        if(isset($_POST['lg'])){
+            unset($_POST['lg']);
+            header("location: login.php");
+        }
+    ?>
+</body>
