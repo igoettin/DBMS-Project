@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a new manager to create an account. -->
 <!doctype html>
 <?php
     include("check_month_day.php");
@@ -91,7 +92,7 @@
                 <div style = "margin:30px;">
                     <form method = "post">
                         <label> LoginID: </label><input type = "text" name = "loginID_input" class = "box" maxlength = "16" /> <br><br>
-                        <label> Password: </label><input type = "text" name = "password_input" class = "box" maxlength = "8" /><br><br>
+                        <label> Password: </label><input type = "password" name = "password_input" class = "box" maxlength = "8" /><br><br>
                         <label> Manager Name: </label><input type = "text" name = "name_input" class = "box" maxlength = "64" /><br><br>
                         <label> Birthday (YYYY-MM-DD): </label><input type = "text" name = "year_bday" class = "box" size = "4" maxlength = "4" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" />-<input type = "text" name = "month_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" />-<input type = "text" name = "day_bday" class = "box" size = "2" maxlength = "2" onkeypress = "return event.charCode >= 48 && event.charCode <= 57" /><br><br>
                         <label> Address: </label> <input type = "text" name = "address_input" class = "box" maxlength = "128" /><br><br>

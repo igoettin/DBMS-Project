@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page which allows a manager to view, add, update, or delete trainings. -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -9,6 +10,7 @@
 <?php 
     if(isset($_POST['update_button'])){
         $row_num = 0;
+        //Update each training if they were checked.
         $new_training_query = mysql_query("select * from Training order by TrainingName asc;");
         while($row = mysql_fetch_array($new_training_query)){
             if(isset($_POST["update{".$row_num."}"])){
@@ -31,6 +33,7 @@
             }
             $row_num++;
         }
+        //If the loop was not breaked out of (i.e. an error was found in one of the updates), print the success message.
         if($row_num == mysql_num_rows($training_query)){
             $success_update = "All checked trainings have been successfully updated!";
             $training_query = mysql_query("select * from Training order by TrainingName asc;");
@@ -38,6 +41,7 @@
     }
     else if(isset($_POST['delete_button'])){
         $row_num = 0;
+        //Delete each training if they were checked.
         $new_training_query = mysql_query("select * from Training order by TrainingName asc;");
         while($row = mysql_fetch_array($new_training_query)){
             if(isset($_POST["delete{".$row_num."}"])){
@@ -50,6 +54,7 @@
         $training_query = mysql_query("select * from Training order by TrainingName asc;");
     }
     else if(isset($_POST['add_button'])){
+        //Add the new training if the training name does not already exist in the DB.
         $training_name = $_POST['add_name'];
         $instruction = $_POST['add_instruction'];
         $time_period = $_POST['add_hours'];
@@ -119,15 +124,16 @@
                     <th colspan='5'> <h3> Trainings List (Update/Delete) </h3></th>
                 </tr>
                 <tr>
-                    <th> TrainingName </th> 
+                    <th> Training Name </th> 
                     <th> Instruction </th> 
-                    <th> TimePeriodInHour </th> 
+                    <th> Time Period In Hour </th> 
                     <th> Check to Update </th>
                     <th> Check to Delete </th>
                 </tr>
                 <?php
                     print "<form method = \"post\">";
                     $row_num = 0;
+                    //Fill the table with the available trainings
                     while($row = mysql_fetch_array($training_query)){
                         $training_name = $row['TrainingName'];
                         $instruction = $row['Instruction'];
@@ -137,6 +143,7 @@
                                 <td>"."<input type = \"text\" name =\"TP{".$row_num."}\"value =\"".$time_period."\" onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\" maxlength = \"9\"/></td>"
                                 ."<td><input type = \"checkbox\" name = \"update{".$row_num."}\" /></td>";
                         print"<td>";
+                        //Check if the current training is already assigned to a player. If so, we cannot allow it to be deleted.
                         $check_deletion = mysql_num_rows(mysql_query("select * from Player, AssignTraining, Training where Player.ID = AssignTraining.PlayerID and AssignTraining.TrainingName = '$training_name';"));
                         if($check_deletion > 0)
                             print "Cannot delete training; already assigned to a player.";

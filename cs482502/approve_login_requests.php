@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page for approving player login requests by a manager -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -9,6 +10,7 @@
     if(isset($_POST['approve_button'])){
         $row_num = 0;
         $new_player_query = mysql_query("select * from Player where RequestFlag = 0;");
+        //If any boxes were checked, update the player relation by setting the request flag to 1
         while($row = mysql_fetch_array($new_player_query)){
             if(isset($_POST["approve{".$row_num."}"])){  
                 $login_id = $row['LoginID'];
@@ -21,6 +23,7 @@
     else if(isset($_POST['update_button'])){
         $row_num = 0;
         $player_query = mysql_query("select * from Player where RequestFlag = 1;");
+        //If any boxes were checked, update the passwords for the player IDs that were checked
         while($row = mysql_fetch_array($player_query)){
             if(isset($_POST["update{".$row_num."}"])){
                 $login_id = $row['LoginID'];
@@ -55,7 +58,7 @@
                     <th colspan='2'> <h3> Approve new player login </h3></th>
                 </tr>
                 <tr>
-                    <th> LoginID </th> 
+                    <th> Login ID </th> 
                     <th> Check to approve </th> 
                 </tr>
                 <?php
@@ -83,13 +86,14 @@
                     <th colspan='3'> <h3> Reset approved player passwords </h3></th>
                 </tr>
                 <tr>
-                    <th> LoginID </th> 
+                    <th> Login ID </th> 
                     <th> New Password </th> 
                     <th> Check to update </th>
                 </tr>
                 <?php
                     print "<form method = \"post\">";
                     $row_num = 0;
+                    //Loop through and fill table for each approved player.
                     $player_query = mysql_query("select * from Player where RequestFlag = 1");
                     while($row = mysql_fetch_array($player_query)){
                         $login_id = $row['LoginID'];

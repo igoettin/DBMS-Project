@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a manager to assign players to games. -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -10,6 +11,7 @@
         $action_select = $_POST['action_select'];
         $player_select = $_POST['player_select'];
         $game_select = $_POST['game_select'];
+        //Assign the player to the game if the assign action was picked, remove the player from a game if the remove action was picked.
         if($action_select === "assign_action") 
             mysql_query("insert into Play(PlayerID, GameID) values('$player_select','$game_select');");
         else if ($action_select === "remove_action")
@@ -31,15 +33,15 @@
     <body>
     <div class = tabcontent>
             <div style = "font-size:13px; color:#cc0000;"><?php print $error_add; ?></div>
-            <!-- Assign new training to a player table -->
+            <!-- Assign player to a game table -->
             <table border = '3'>
                 <tr>
                     <th colspan='3'><h3> Assign a player to game / Remove a player from a game</h3></th>
                 </tr>
                 <tr>
                     <th>Action to Perform</th>
-                    <th>Player [ID, LoginID, Name]</th>
-                    <th>Game [GameID, Date, PlayingVenue, OpponentTeam]</th>
+                    <th>Player [ID, Login ID, Name]</th>
+                    <th>Game [Game ID, Date, Playing Venue, Opponent Team]</th>
                 </tr>
                 <form method = "post">
                 <tr>
@@ -90,12 +92,12 @@
                 </tr>
                 <tr>
                     <th> Player ID </th> 
-                    <th> Player LoginID </th> 
+                    <th> Player Login ID </th> 
                     <th> Player Name </th> 
-                    <th> OpponentTeam</th>
+                    <th> Opponent Team</th>
                     <th> Date </th>
-                    <th> PlayingVenue </th>
-                    <th> GameID(s) </th>
+                    <th> Playing Venue </th>
+                    <th> Game ID(s) </th>
                 </tr>
                 <?php
                     print "<form method = \"post\">";
@@ -103,13 +105,16 @@
                     $start = 1;
                     $play_query = mysql_query("select * from Play order by PlayerID asc, GameID asc;");
                     while($row = mysql_fetch_array($play_query)){
-                        //First row to add
+                        //First row in the relation, no other training to append yet.
                         if($start == 1)
                             $start = 0;
+                        //If, in the relation, the Player is assigned to multiple games, assign the next game to the row
+                        //so that a new row does not have to be created.
                         else if($row['PlayerID'] == $player_ID && $row['GameID'] == $game_ID){
                             $next_game = $row['GameID'];
                             print "</br>".$next_game;
                             continue;
+                        //There are no more games that assigned to the current player, end the row.
                         } else{
                             print "</td></tr>";
                         }

@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a player to add, update, and/or delete their stats -->
 <?php
     include("config.php");
     include("player_view.php");
@@ -9,6 +10,7 @@
 <?php 
     if(isset($_POST['update_button'])){
         $row_num = 0;
+        //Loop through the table and update each stat that was checked
         $new_stats_query = mysql_query("select * from Stats where PlayerID = '$p_ID';");
         while($row = mysql_fetch_array($new_stats_query)){
             if(isset($_POST["update{".$row_num."}"])){
@@ -44,6 +46,7 @@
     }
     else if(isset($_POST['delete_button'])){
         $row_num = 0;
+        //Loop through the table and delete each stat that was checked
         $new_stats_query = mysql_query("select * from Stats where PlayerID = '$p_ID';");
         while($row = mysql_fetch_array($new_stats_query)){
             if(isset($_POST["delete{".$row_num."}"])){
@@ -60,12 +63,15 @@
         $total_points = $_POST['add_total_points'];
         $aspg = $_POST['add_ASPG'];
         $row = mysql_query("select * from Stats where PlayerID = '$p_ID' and Year = '$year';");
+        //Add the new statistic to the DB for the player if the key (PlayerID,Year) does not already exist in the DB.
         if(empty($year))
             $error_add = "Cannot add new statistic; the Year is empty!";
         else if(empty($total_points))
             $error_add = "Cannot add new statistic; Total Points is empty!";
         else if(empty($aspg))
             $error_add = "Cannot add new statistic; ASPG is empty!";
+        else if(mysql_num_rows($row) > 0)
+            $error_add = "Cannot add new statistic; the statistic for the given year already exists! Please update it instead.";
         else{
             mysql_query("insert into Stats(PlayerID, Year, TotalPoints, ASPG) values ('$p_ID','$year','$total_points','$aspg');");
             $success_add = "The new statistic has been successfully added!"; 
@@ -132,6 +138,7 @@
                 <?php 
                     print "<form method = \"post\">";
                     $row_num = 0;
+                    //Go through the DB and print each stat, for the logged in player, to the table
                     while($row = mysql_fetch_array($stats_query)){
                         $year = $row['Year'];
                         $total_points = $row['TotalPoints'];

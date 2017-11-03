@@ -1,4 +1,4 @@
-<!-- File to reset the player's password -->
+<!-- This PHP file defines the page that allows a manager or player to reset their account password -->
 <!doctype html>
 <?php
     include("config.php");
@@ -9,11 +9,12 @@
         $current_pass = $_POST['current_password_input'];
         $new_pass = $_POST['new_password_input'];
         $retype_pass = $_POST['re-type_password_input'];
+        //Query both the manager and player tables to find the given login ID and password. Update the respective table if the info is correct.
         $loginID_row = mysql_fetch_array(mysql_query("(select LoginID from Player where LoginID = '$loginID') union (select LoginID from Manager where LoginID = '$loginID');"));
         $password_row = mysql_fetch_array(mysql_query("(select Password from Player where LoginID = '$loginID') union (select Password from Manager where LoginID = '$loginID');"));
         if(empty($loginID))
             $error = "No loginID is given!";
-        if(empty($current_pass))
+        else if(empty($current_pass))
             $error = "No current password is given!";
         else if(empty($new_pass))
             $error = "No new password is given!!";
@@ -63,15 +64,15 @@
                 <div style = "margin:30px;">
                     <form method = "post">
                         <label> LoginID: </label><input type = "text" name = "loginID_input" class = "box" maxlength = "16"/><br><br>
-                        <label> Current password: </label><input type = "text" name = "current_password_input" class = "box" maxlength = "8" /><br><br>
-                        <label> New password: </label><input type = "text" name = "new_password_input" class = "box" maxlength = "8" /> <br><br>
-                        <label> Re-type new password: </label><input type = "text" name = "re-type_password_input" class = "box" maxlength = "8" /> <br><br>
+                        <label> Current password: </label><input type = "password" name = "current_password_input" class = "box" maxlength = "8" /><br><br>
+                        <label> New password: </label><input type = "password" name = "new_password_input" class = "box" maxlength = "8" /> <br><br>
+                        <label> Re-type new password: </label><input type = "password" name = "re-type_password_input" class = "box" maxlength = "8" /> <br><br>
+                        <div style = "font-size:13px; color:#cc0000; "><?php echo $error; ?> </div>
+                        <div style = "font-size:13px; color:#0cc719; "><?php echo $success; ?> </div><br>
                         <input type = "submit" name = "submit_new_password" value = "  Submit  "/><br/>
                         <input type = "submit" name = "go_back_button" value = "  Go Back  "/><br/>
                     </form>
-                    <div style = "font-size:13px; color:#cc0000; "><?php echo $error; ?> </div>
-                    <div style = "font-size:13px; color:#0cc719; "><?php echo $success; ?> </div>
-                </div>
+              </div>
             </div>
 
         </div>

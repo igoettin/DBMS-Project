@@ -1,4 +1,4 @@
-<!-- File to reset the player's password -->
+<!-- This PHP file defines the page that allows a manager to edit his/her information as well as upload a new certificate or re-upload an existing certificate -->
 <!doctype html>
 <?php
     include("manager_view.php");
@@ -16,6 +16,7 @@
         $new_address = ($_POST['address_input']);
         $new_email = ($_POST['email_input']);
         $new_phone_number = ($_POST['phone_number_input']);
+        //Update the manager's information if all the given information is valid.
         if(empty($new_password))
             $error = "No password is given!";
         else if(empty($new_name))
@@ -52,14 +53,18 @@
     else if(isset($_POST['upload_cert'])){
         $tmp_name = $_FILES['file']['tmp_name'];
         $file_content = file_get_contents($tmp_name);
+        //Check that a file was given for submission
         if(empty($file_content))
             $error_upload = "No certificate given for upload!";
         else{
+            //If there is no certificate in the DB for this manager, assign certificate ID to 0. 
+            //Otherwise, assign the certificate ID to be the max certificate ID in the DB + 1.
             $max_lookup = mysql_fetch_array(mysql_query("select max(CertificateId) from ManagerCertificate where ManagerID = '$p_ID';"))['max(CertificateId)'];
             if ($max_lookup == null)
                 $new_ID = 0;
             else
                 $new_ID = $max_lookup + 1;
+            //Insert the byte content of the file into the DB for the blob. mysql_escape_string is used so that no errors are caused if the byte content of the image contains string chars.
             mysql_query("insert into ManagerCertificate(ManagerID, CertificateId, Certificate) values('$p_ID','$new_ID','".mysql_escape_string($file_content)."');") || die(mysql_error());
             $success_upload = "Your new certificate has been successfully uploaded!";
         }
@@ -71,6 +76,7 @@
             $error_reupload = "No certificate given for reupload!";
         else{
             $cert_id = $_POST['reupload_id'];
+            //Update the certificate with new byte content.
             mysql_query("update ManagerCertificate set Certificate = '".mysql_escape_string($file_content)."' where ManagerID = '$p_ID' and CertificateId = '$cert_id';");
             $success_reupload = "Your certificate has been successfully re-uploaded!";
         }
@@ -109,7 +115,7 @@
                     <th>Birthday</th>
                     <th>Address</th>
                     <th>Email</th>
-                    <th>PhoneNumber</th>
+                    <th>Phone Number</th>
                 </tr>
                 <tr>
                     <form method = "post">

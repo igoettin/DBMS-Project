@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a manager to view, add, and update games. -->
 <?php
     include("check_month_day.php");
     include("config.php");
@@ -20,6 +21,7 @@
                 $result = $_POST["RESULT{".$row_num."}"];
                 $playing_venue = $_POST["PV{".$row_num."}"];
                 $opponent_team = $_POST["OPT{".$row_num."}"];
+                //Update the game if all the given information is valid.
                 if(empty($playing_venue))
                     $error = "Cannot update a game; The playing venue is empty!";
                 else if(empty($opponent_team))
@@ -54,6 +56,7 @@
         $result_select = $_POST["result_select"];
         $playing_venue = $_POST["playing_venue"];
         $opponent_team = $_POST["opponent_team"];
+        //Add the game if all the information is valid.
         if(empty($year_date))
             $error_add = "Cannot add new game; the year of the date is empty!";
         else if(empty($month_date))
@@ -109,8 +112,8 @@
                 <tr>
                     <th>Date (YYYY-MM-DD)</th>
                     <th>Result</th>
-                    <th>PlayingVenue</th>
-                    <th>OpponentTeam</th>
+                    <th>Playing Venue</th>
+                    <th>Opponent Team</th>
                 </tr>
                 <form method = "post">
                 <tr>
@@ -144,17 +147,18 @@
                     <th colspan='7'> <h3> Games List </h3></th>
                 </tr>
                 <tr>
-                    <th> GameID </th> 
+                    <th> Game ID </th> 
                     <th> Date </th> 
                     <th> Result </th> 
-                    <th> PlayingVenue </th>
-                    <th> OpponentTeam </th>
+                    <th> Playing Venue </th>
+                    <th> Opponent Team </th>
                     <th> Check to Update </th>
                 </tr>
                 <?php
                     print "<form method = \"post\">";
                     $row_num = 0;
                     $game_query = mysql_query("select * from Game order by GameID asc;");
+                    //For each game in the relation, print it to the table as a row.
                     while($row = mysql_fetch_array($game_query)){
                         $game_ID = $row['GameID'];
                         $year = date('Y',strtotime($row['Date']));

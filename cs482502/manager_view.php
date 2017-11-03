@@ -1,3 +1,4 @@
+<!-- This PHP file defines the tabs on the header for the manager page -->
 <!doctype html>
 <?php
     include("config.txt");
@@ -95,30 +96,4 @@
             header("location: login.php");
         }
     ?>
-<!--
-    <div id="View Manager Info" class = "tabcontent">
-        <h3>Manager info goes here</h3>
-    </div>
-    
-    <div id="Edit Manager Info" class = "tabcontent">
-    </div>
-
-    <div id="View Players" class = "tabcontent">
-    </div>
-
-    <div id="View and Modify Trainings" class = "tabcontent">
-    </div>
-
-    <div id="Assign Trainings to Players" class = "tabcontent">
-    </div>
-
-    <div id="View and Modify Games" class = "tabcontent">
-    </div>
-
-    <div id="Assign Players to Games" class = "tabcontent">
-    </div>
-
-    <div id="Approve player log-in requests" class = "tabcontent">
-    </div>
--->
 </body>

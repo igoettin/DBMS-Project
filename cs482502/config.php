@@ -1,11 +1,10 @@
+<!-- Configuration PHP file for connecting to the server and linking the page up with the database -->
 <?php
-   define('DB_SERVER', 'dbclass.cs.nmsu.edu');
-   define('DB_USERNAME', 'igoettin');
-   define('DB_PASSWORD', 'v0PTzY92');
-   define('DB_DATABASE', 'cs482502fa17_igoettin');
+   //Connect to the database server;
    $con = mysql_connect('dbclass.cs.nmsu.edu','igoettin','v0PTzY92');
    if(!$con) {
     die('Could not connect: ' . mysql_error());
    }
+   //Select the cs482502fa17_igoettin as the database we want to use
    mysql_select_db("cs482502fa17_igoettin", $con);
 ?>

@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a manager to assign trainings to players. -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -10,6 +11,7 @@
         $action_select = $_POST['action_select'];
         $player_select = $_POST['player_select'];
         $training_select = $_POST['training_select'];
+        //Assign the new training if the assign action was selected, delete an existing training if the remove action was selected.
         if($action_select === "assign_action") 
             mysql_query("insert into AssignTraining(PlayerID, ManagerID, TrainingName) values('$player_select','$p_ID','$training_select');");
         else if ($action_select === "remove_action")
@@ -38,7 +40,7 @@
                 </tr>
                 <tr>
                     <th>Action to Perform</th>
-                    <th>Player [ID, LoginID, Name]</th>
+                    <th>Player [ID, Login ID, Name]</th>
                     <th>New Training</th>
                 </tr>
                 <form method = "post">
@@ -90,7 +92,7 @@
                 </tr>
                 <tr>
                     <th> Player ID </th> 
-                    <th> Player LoginID </th> 
+                    <th> Player Login ID </th> 
                     <th> Player Name </th> 
                     <th> Manager ID</th>
                     <th> Manager LoginID </th>
@@ -101,14 +103,19 @@
                     print "<form method = \"post\">";
                     $row_num = 0;
                     $start = 1;
+                    //Fill the table with the assigned trainings from the DB.
                     $assign_query = mysql_query("select * from AssignTraining order by PlayerID asc, ManagerID asc;");
                     while($row = mysql_fetch_array($assign_query)){
+                        //Initially (i.e. start of loop), we only consider the first row of the relation, so directly print it out.
                         if($start == 1)
                             $start = 0;
+                        //If a player is assigned to more than one training by the same manager,
+                        //append the training to the last cell in the table so that an extra row is not created.
                         else if($row['PlayerID'] == $player_ID && $row['ManagerID'] == $manager_ID){
                             $next_training = $row['TrainingName'];
                             print "</br>".$next_training;
                             continue;
+                        //End the table row, no more trainings were assigned to the current player by the current manager.
                         } else{
                             print "</td></tr>";
                         }

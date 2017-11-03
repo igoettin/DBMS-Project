@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a player to edit his/her information -->
 <!doctype html>
 <?php
     include("player_view.php");
@@ -46,6 +47,7 @@
             $error = "The day and month of your birthday are invalid.";
         else {
             $birthday_complete = $new_year."-".$new_month."-".$new_day;
+            //If no errors were found, update the player's info with the new data.
             mysql_query("update Player set Password = '$new_password', Name = '$new_name', Birthday = '$birthday_complete', Address = '$new_address', Email = '$new_email', PhoneNumber = '$new_phone_number', PlayPos = '$play_pos' where ID = '$p_ID';") || die(mysql_error());
             $success = "Your account details have been successfully updated!";
             $player_row = mysql_fetch_array(mysql_query("select * from Player where ID = '$p_ID';"));

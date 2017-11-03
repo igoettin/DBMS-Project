@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a player to see his/her information including assigned trainings and stats -->
 <?php
     include("player_view.php");
     include("config.php");

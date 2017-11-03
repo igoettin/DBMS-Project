@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that shows a manager's information when they are loggin in -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -6,6 +7,7 @@
     $manager_query = mysql_query("select * from Manager where ID = '$p_ID';");
     $cert_query = mysql_query("select * from ManagerCertificate, Manager where Manager.ID = '$p_ID' and ManagerCertificate.ManagerID = Manager.ID order by CertificateId;");
     $num_rows = mysql_num_rows($cert_query);
+    //If a download button was pressed, download the corresponding certificate as an attachment.
     for($c = 0; $c < $num_rows; $c++){
         $str = "download{".$c."}";
         if(isset($_POST[$str])){
@@ -71,6 +73,7 @@
                     <form method = "post" enctype = "multipart/form-data">
                     <?php
                         $element = 0;
+                        //For each row in the certificate query, add a row in the table. Each row will have a corresponding download button and thumbnail for the certificate.
                         $certificate_query = mysql_query("select * from ManagerCertificate, Manager where Manager.ID = '$p_ID' and ManagerCertificate.ManagerID = Manager.ID order by CertificateId;");
                         while($row = mysql_fetch_array($certificate_query)){
                             $blob = $row['Certificate'];
@@ -81,7 +84,6 @@
                     ?>
                     </form>
             </table>
-    <!-- </form> -->
     </body>
     </div>
 </html>

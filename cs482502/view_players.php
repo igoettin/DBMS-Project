@@ -1,3 +1,4 @@
+<!-- This PHP file defines the page that allows a manager to view all players and their statistics. -->
 <?php
     include("config.php");
     include("manager_view.php");
@@ -22,14 +23,14 @@
                 </tr>
                 <tr>
                     <th> ID </th> 
-                    <th> LoginID </th> 
+                    <th> Login ID </th> 
                     <th> Name </th> 
                     <th> Password </th>
                     <th> Birthday </th> 
                     <th> Address </th> 
                     <th> Email </th> 
-                    <th> PhoneNumber </th> 
-                    <th> PlayPos </th>
+                    <th> Phone Number </th> 
+                    <th> Play Pos </th>
                 </tr>
                 <?php
                     while($row = mysql_fetch_array($player_query))
@@ -43,9 +44,9 @@
                     <th colspan='4'><h3> Statistics for each Player </h3> </th> 
                 </tr>
                 <tr>
-                    <th> PlayerID </th>
+                    <th> Player ID </th>
                     <th> Year </th>
-                    <th> TotalPoints </th>
+                    <th> Total Points </th>
                     <th> ASPG </th>
                 </tr>
                 <?php
