@@ -65,8 +65,8 @@
                     <th colspan='4'> <h3> Manager Certificates </h3> </th>
                 </tr>
                 <tr>
-                    <th> ManagerID </th>
-                    <th> CertificateId </th>
+                    <th> Manager ID </th>
+                    <th> Certificate ID </th>
                     <th> Check to Download </th>
                     <th> Certificate Preview</th>
                 </tr>
