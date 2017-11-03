@@ -1,12 +1,16 @@
+##############################################
 #CS482/502 Database Management Systems Project
+##############################################
 The files in this directory contain our solutions to Phase 2 of the CS482/502 Database Project.
 The folder cs482502 contains the php files that make up the web page for the project.
 More information on the contents of this folder can be found in the sections "Overview of web site design" and "Fulfilled Project Requirements" of this README.
 The folder DB_files contains the sql files that are used to setup the database.
 These files are similar to the files from Phase 1 of the project, but have been modified to accomodate some of the requirements of the project.
-The modifications that have been made are detailed in the "Database SQL files" section of this README.
+The modifications that have been made are detailed in the "Changes to database SQL files" section of this README.
 
-##Overview of web site design
+#############################
+#Overview of web site design
+#############################
 For our web site, we have designed a UNIFIED login system. That is, both players and managers login through the same login screen, and depending on the credentials given, the system will automatically transfer over to the player subsystem or the manager subsystem.
 This means that Login IDs must be distinct among players and managers; no player can have the same login ID as a manager.
 
@@ -14,7 +18,10 @@ We have also designed a unified reset password system. Both players and managers
 
 After a player or manager logs in, they can navigate their subsystem page by clicking on one of the tabs at the top of the page. They can also logout from the system by clicking the "Logout" tab.
 
-##Fulfilled Project Requirements
+
+###############################
+#Fulfilled Project Requirements
+###############################
 This section describes, for each requirement in the project instructions, how the requirement is fulfilled on our web site. This section also details how to navigate our web site to see the fulfilled requirement. 
 
 Player Management Subsystem:
@@ -102,7 +109,10 @@ Manager administration sub-system:
 
         After logging in as a manager, click the "Logout" button to logout and return to the main login page.
 
-##Database SQL files
+
+##############################
+#Changes to database SQL files
+##############################
 We have made two changes to our CreateDB.sql file from what we submitted in phase 1 of the project.
 The first change is a new attribute added to the Player relation called RequestFlag.
 When a player account is requested, the RequestFlag is set to 0. This prevents the player from logging into his/her account until it is approved by a manager.
