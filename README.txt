@@ -1,6 +1,8 @@
-##############################################
+####################################################################
 #CS482/502 Database Management Systems Project
-##############################################
+####################################################################
+#Current link to website: https://www.cs.nmsu.edu/~igoettin/cs482502
+####################################################################
 The files in this directory contain our solutions to Phase 2 of the CS482/502 Database Project.
 The folder cs482502 contains the php files that make up the web page for the project.
 More information on the contents of this folder can be found in the sections "Overview of web site design" and "Fulfilled Project Requirements" of this README.
